@@ -186,7 +186,7 @@ class FileStructure(object):
         structure = b''
         for val in self.vars_:
             if isinstance(getattr(self, val), bytes):
-                structure += getattr(self, val).ljust(context.bytes, b'\x00')
+                structure += getattr(self, val).ljust(self.length[val], b'\x00')
             else:
                 if self.length[val] > 0:
                     structure += pack(getattr(self, val), self.length[val]*8)
@@ -215,7 +215,7 @@ class FileStructure(object):
         structure = b''
         for val in self.vars_:
             if isinstance(getattr(self, val), bytes):
-                structure += getattr(self, val).ljust(context.bytes, b'\x00')
+                structure += getattr(self, val).ljust(self.length[val], b'\x00')
             else:
                 structure += pack(getattr(self, val), self.length[val]*8)
             if val == v:
